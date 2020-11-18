@@ -715,7 +715,7 @@ Item {
                         dropPanelComponent: centerMapDropPanel
                    },
                     ToolStripAction {
-                        text:               qsTr("Selection Mode")
+                        text:               qsTr("Selection")
                         iconSource:         "/qmlimages/select.svg"
                         enabled:            toolStrip._isRallyLayer ? true : _missionController.flyThroughCommandsAllowed
                         visible:            toolStrip._isRallyLayer || toolStrip._isMissionLayer
