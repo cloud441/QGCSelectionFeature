@@ -1,2 +1,10 @@
-lol
 
+# TODO LIST:
+
+--> add mode in PlanView Menu:                  OK
+--> design selection mode image:                OK
+--> stop map moves in selection mode:
+--> show rectangle in selection mode:
+--> build a moving model after selection:
+--> select first point in rectangle for moves:
+--> select all inner points for moves:
