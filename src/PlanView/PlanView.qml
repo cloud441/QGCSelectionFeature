@@ -714,15 +714,14 @@ Item {
                         visible:            true
                         dropPanelComponent: centerMapDropPanel
                    },
+                    //FIXME
                     ToolStripAction {
                         text:               qsTr("Selection")
                         iconSource:         "/qmlimages/select.svg"
                         enabled:            toolStrip._isRallyLayer ? true : _missionController.flyThroughCommandsAllowed
                         visible:            toolStrip._isRallyLayer || toolStrip._isMissionLayer
                         checkable:          true
-                        onCheckedChanged:   _addWaypointOnClick = checked
-                        property bool myAddWaypointOnClick: _addWaypointOnClick
-                        onMyAddWaypointOnClickChanged: checked = _addWaypointOnClick
+                        dropPanelComponent: selectionDropPanel
                     }
                 ]
             }
@@ -998,6 +997,16 @@ Item {
     }
 
     //- ToolStrip DropPanel Components
+
+//FIXME
+    Component {
+    id: selectionDropPanel
+
+    CenterMapDropPanel {
+        map:            editorMap
+        fitFunctions:   mapFitFunctions
+    }
+}
 
     Component {
         id: centerMapDropPanel
