@@ -1002,7 +1002,7 @@ Item {
     Component {
     id: selectionDropPanel
 
-    CenterMapDropPanel {
+        SelectionDropPanel {
         map:            editorMap
         fitFunctions:   mapFitFunctions
     }
