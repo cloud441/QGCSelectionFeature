@@ -618,14 +618,15 @@ Item {
             maxHeight:          parent.height - toolStrip.y
             title:              qsTr("Plan")
 
-            readonly property int flyButtonIndex:       0
-            readonly property int fileButtonIndex:      1
-            readonly property int takeoffButtonIndex:   2
-            readonly property int waypointButtonIndex:  3
-            readonly property int roiButtonIndex:       4
-            readonly property int patternButtonIndex:   5
-            readonly property int landButtonIndex:      6
-            readonly property int centerButtonIndex:    7
+            readonly property int flyButtonIndex:           0
+            readonly property int fileButtonIndex:          1
+            readonly property int takeoffButtonIndex:       2
+            readonly property int waypointButtonIndex:      3
+            readonly property int roiButtonIndex:           4
+            readonly property int patternButtonIndex:       5
+            readonly property int landButtonIndex:          6
+            readonly property int centerButtonIndex:        7
+            readonly property int selectionModeButtonIndex: 8
 
             property bool _isRallyLayer:    _editingLayer == _layerRallyPoints
             property bool _isMissionLayer:  _editingLayer == _layerMission
@@ -712,6 +713,16 @@ Item {
                         enabled:            true
                         visible:            true
                         dropPanelComponent: centerMapDropPanel
+                   },
+                    ToolStripAction {
+                        text:               qsTr("Selection Mode")
+                        iconSource:         "/qmlimages/MapAddMission.svg"
+                        enabled:            toolStrip._isRallyLayer ? true : _missionController.flyThroughCommandsAllowed
+                        visible:            toolStrip._isRallyLayer || toolStrip._isMissionLayer
+                        checkable:          true
+                        onCheckedChanged:   _addWaypointOnClick = checked
+                        property bool myAddWaypointOnClick: _addWaypointOnClick
+                        onMyAddWaypointOnClickChanged: checked = _addWaypointOnClick
                     }
                 ]
             }
