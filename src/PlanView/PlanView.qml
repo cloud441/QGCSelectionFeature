@@ -716,7 +716,7 @@ Item {
                    },
                     ToolStripAction {
                         text:               qsTr("Selection Mode")
-                        iconSource:         "/qmlimages/MapAddMission.svg"
+                        iconSource:         "/qmlimages/select.svg"
                         enabled:            toolStrip._isRallyLayer ? true : _missionController.flyThroughCommandsAllowed
                         visible:            toolStrip._isRallyLayer || toolStrip._isMissionLayer
                         checkable:          true
