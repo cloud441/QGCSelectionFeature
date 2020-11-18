@@ -34,8 +34,11 @@ ColumnLayout {
         visible:            showMission
 
         onClicked: {
-            dropPanel.hide()
-            fitFunctions.fitMapViewportToMissionItems()
+            //dropPanel.hide()
+            //fitFunctions.fitMapViewportToMissionItems()
+            var topLeftCoord      = QtPositioning.coordinate(180 - 90.0, 0 - 180.0)
+            var bottomRightCoord  = QtPositioning.coordinate(0 - 90.0, 360 - 180.0)
+            map.setVisibleRegion(QtPositioning.rectangle(topLeftCoord, bottomRightCoord))
         }
     }
 
@@ -45,8 +48,8 @@ ColumnLayout {
         visible:            showAllItems
 
         onClicked: {
-            dropPanel.hide()
-            fitFunctions.fitMapViewportToAllItems()
+            //dropPanel.hide()
+            //fitFunctions.fitMapViewportToAllItems()
         }
     }
 
@@ -55,8 +58,8 @@ ColumnLayout {
         Layout.fillWidth:   true
 
         onClicked: {
-            dropPanel.hide()
-            map.center = fitFunctions.fitHomePosition()
+            //dropPanel.hide()
+            //map.center = fitFunctions.fitHomePosition()
         }
     }
 
