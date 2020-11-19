@@ -14,8 +14,27 @@ import QtPositioning    5.3
 
 import QGroundControl               1.0
 import QGroundControl.ScreenTools   1.0
+import QGroundControl.ScreenToolsController 1.0
 import QGroundControl.Controls      1.0
 import QGroundControl.Palette       1.0
+import QGroundControl.SettingsManager   1.0
+
+//Item {
+//
+//    id:     selection
+//    width:  1000
+//    height: 700
+//
+//
+//
+//
+//    property var map
+//    property var fitFunctions
+//    property bool   showMission:          true
+//    property bool   showAllItems:         true
+
+
+
 
 ColumnLayout {
     id:         root
@@ -45,10 +64,11 @@ ColumnLayout {
     QGCButton {
         text:               qsTr("All Waypoints")
         Layout.fillWidth:   true
-        visible:            showAllItems
+        visible:            true
 
         onClicked: {
-            //dropPanel.hide()
+            console.log(ScreenToolsController.mouseX(), ScreenToolsController.mouseY());
+
             //fitFunctions.fitMapViewportToAllItems()
         }
     }
@@ -63,4 +83,7 @@ ColumnLayout {
         }
     }
 
+
 } // Column
+
+//}
