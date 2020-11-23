@@ -18,24 +18,47 @@ import QGroundControl.ScreenToolsController 1.0
 import QGroundControl.Controls      1.0
 import QGroundControl.Palette       1.0
 import QGroundControl.SettingsManager   1.0
-
-//Item {
-//
-//    id:     selection
-//    width:  1000
-//    height: 700
-//
-//
-//
-//
-//    property var map
-//    property var fitFunctions
-//    property bool   showMission:          true
-//    property bool   showAllItems:         true
+import QGroundControl.FactSystem    1.0
+import QGroundControl.FactControls  1.0
 
 
 
+ColumnLayout {
+    id:             root
+    clip:           true
+    height:         ScreenTools.defaultFontPixelHeight * 23
+    width:          ScreenTools.defaultFontPixelWidth * 30
 
+    property var    myGeoFenceController
+    property var    flightMap
+
+    // ----------------------
+
+    spacing:    ScreenTools.defaultFontPixelWidth * 0.5
+
+    //property var    map
+    //property var    fitFunctions
+    property bool   showMission:          true
+    property bool   showAllItems:         true
+    QGCLabel { text: qsTr("") }
+
+    // ----------------------
+
+    GeoFenceEditor {
+                anchors.top:            parent.top
+                anchors.topMargin:      ScreenTools.defaultFontPixelHeight * 0.25
+                anchors.bottom:         parent.bottom
+                anchors.left:           parent.left
+                anchors.right:          parent.right
+                myGeoFenceController:   parent.myGeoFenceController
+                flightMap:              parent.flightMap
+                visible:                true
+            }
+}
+
+
+
+/*
 ColumnLayout {
     id:         root
     spacing:    ScreenTools.defaultFontPixelWidth * 0.5
@@ -66,11 +89,6 @@ ColumnLayout {
         Layout.fillWidth:   true
         visible:            true
 
-        onClicked: {
-            console.log(ScreenToolsController.mouseX(), ScreenToolsController.mouseY());
-
-            //fitFunctions.fitMapViewportToAllItems()
-        }
     }
 
     QGCButton {
@@ -82,8 +100,5 @@ ColumnLayout {
             //map.center = fitFunctions.fitHomePosition()
         }
     }
-
-
-} // Column
-
-//}
+}
+*/

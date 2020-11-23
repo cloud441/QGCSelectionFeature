@@ -1003,8 +1003,8 @@ Item {
     id: selectionDropPanel
 
         SelectionDropPanel {
-        map:            editorMap
-        fitFunctions:   mapFitFunctions
+        myGeoFenceController:  _geoFenceController
+        flightMap:             editorMap
     }
 }
 
