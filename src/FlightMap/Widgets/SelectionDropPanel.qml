@@ -52,7 +52,15 @@ ColumnLayout {
                 anchors.right:          parent.right
                 myGeoFenceController:   parent.myGeoFenceController
                 flightMap:              parent.flightMap
-                visible:                true
+                visible:                _editingLayer != _layerGeoFence
+            }
+    GeoFenceMapVisuals {
+                map:                    parent.flightMap
+                myGeoFenceController:   parent.myGeoFenceController
+                interactive:            _editingLayer != _layerGeoFence
+                homePosition:           _missionController.plannedHomePosition
+                planView:               true
+                opacity:                _editingLayer == _layerGeoFence ? editorMap._nonInteractiveOpacity : 1
             }
 }
 

@@ -720,7 +720,7 @@ Item {
                         iconSource:         "/qmlimages/select.svg"
                         enabled:            toolStrip._isRallyLayer ? true : _missionController.flyThroughCommandsAllowed
                         visible:            toolStrip._isRallyLayer || toolStrip._isMissionLayer
-                        checkable:          true
+                        //checkable:          true
                         dropPanelComponent: selectionDropPanel
                     }
                 ]
