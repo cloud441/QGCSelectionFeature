@@ -70,19 +70,15 @@ ColumnLayout {
 ColumnLayout {
     id:         root
     spacing:    ScreenTools.defaultFontPixelWidth * 0.5
-
     property var    map
     property var    fitFunctions
     property bool   showMission:          true
     property bool   showAllItems:         true
-
     QGCLabel { text: qsTr("Selection Menu:") }
-
     QGCButton {
         text:               qsTr("Select")
         Layout.fillWidth:   true
         visible:            showMission
-
         onClicked: {
             //dropPanel.hide()
             //fitFunctions.fitMapViewportToMissionItems()
@@ -91,18 +87,14 @@ ColumnLayout {
             map.setVisibleRegion(QtPositioning.rectangle(topLeftCoord, bottomRightCoord))
         }
     }
-
     QGCButton {
         text:               qsTr("All Waypoints")
         Layout.fillWidth:   true
         visible:            true
-
     }
-
     QGCButton {
         text:               qsTr("Move points")
         Layout.fillWidth:   true
-
         onClicked: {
             //dropPanel.hide()
             //map.center = fitFunctions.fitHomePosition()

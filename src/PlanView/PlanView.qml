@@ -49,6 +49,8 @@ Item {
     property bool   _lightWidgetBorders:                editorMap.isSatelliteMap
     property bool   _addWaypointOnClick:                false
     property bool   _addROIOnClick:                     false
+    // Boolean to determine if we want to Moove waypoints, default value is False
+    property bool _selectionMode:                       false
     property bool   _singleComplexItem:                 _missionController.complexMissionItemNames.length === 1
     property int    _editingLayer:                      layerTabBar.currentIndex ? _layers[layerTabBar.currentIndex] : _layerMission
     property int    _toolStripBottom:                   toolStrip.height + toolStrip.y
@@ -86,8 +88,6 @@ Item {
     property bool _firstFenceLoadComplete:          false
     property bool _firstRallyLoadComplete:          false
     property bool _firstLoadComplete:               false
-    property bool _selectionmode:                   false
-    property bool _selectionOtherMode:              false
 
     MapFitFunctions {
         id:                         mapFitFunctions  // The name for this id cannot be changed without breaking references outside of this code. Beware!
@@ -475,15 +475,13 @@ Item {
                         if (_rallyPointController.supported && _addWaypointOnClick) {
                             _rallyPointController.addPoint(coordinate)
                         }
-
-
                         break
 
                     }
-
-
-                    if (_selectionmode && _editingLayer == _layerMission)
+                    // If selection button is clicked and Mission layer active
+                    if (_selectionMode && _editingLayer == _layerMission)
                     {
+                        // We moove all waypoints to the clicked location
                         _missionController.mooveWayPoints(coordinate)
                     }
                 }
@@ -729,7 +727,7 @@ Item {
                         visible:            true
                         dropPanelComponent: centerMapDropPanel
                    },
-                    //FIXME
+                    // Selection Button
                     ToolStripAction {
                         text:               qsTr("Selection")
                         iconSource:         "/qmlimages/select.svg"
@@ -737,9 +735,10 @@ Item {
                         visible:            toolStrip._isRallyLayer || toolStrip._isMissionLayer
                         checkable:          true
 
-                        onTriggered: {
-                            _selectionmode = true
-                        }
+                        // Switch On / Off 
+                        onCheckedChanged:   _selectionMode = checked
+                        property bool mySelectionOnClick: _selectionMode
+                        onMySelectionOnClickChanged: checked = _selectionMode
                     }
                 ]    
             }
@@ -749,6 +748,7 @@ Item {
             function allAddClickBoolsOff() {
                 _addROIOnClick =        false
                 _addWaypointOnClick =   false
+                _selectionMode =        false
             }
 
             onDropped: allAddClickBoolsOff()
