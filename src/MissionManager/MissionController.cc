@@ -314,6 +314,12 @@ int MissionController::_nextSequenceNumber(void)
 QGeoCoordinate MissionController::getTakeOffCoord(void)
 {
     SimpleMissionItem* takeOff = qobject_cast<SimpleMissionItem*>(_visualItems->get(0));
+    int it = 1;
+    while (!takeOff)
+    {
+        takeOff = qobject_cast<SimpleMissionItem*>(_visualItems->get(it));
+        it++;
+    }
     return takeOff->coordinate();
 }
 
