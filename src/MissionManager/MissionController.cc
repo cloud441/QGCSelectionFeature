@@ -7,6 +7,8 @@
  *
  ****************************************************************************/
 
+#include <iostream>
+
 #include "MissionCommandUIInfo.h"
 #include "MissionController.h"
 #include "MultiVehicleManager.h"
@@ -306,6 +308,41 @@ int MissionController::_nextSequenceNumber(void)
     } else {
         VisualMissionItem* lastItem = _visualItems->value<VisualMissionItem*>(_visualItems->count() - 1);
         return lastItem->lastSequenceNumber() + 1;
+    }
+}
+
+QGeoCoordinate MissionController::getTakeOffCoord(void)
+{
+    SimpleMissionItem* takeOff = qobject_cast<SimpleMissionItem*>(_visualItems->get(0));
+    return takeOff->coordinate();
+}
+
+void MissionController::mooveWayPoints(QGeoCoordinate coordinate)
+{
+    SimpleMissionItem* waypoint;
+    const int len = _visualItems->count();
+
+    QGeoCoordinate takeOffCoord = getTakeOffCoord();
+
+    // Compute translation based on TakeOff Coord
+    double xTranslation = coordinate.latitude() - takeOffCoord.latitude();
+    double yTranslation = coordinate.longitude() - takeOffCoord.longitude();
+
+    QGeoCoordinate newCoord = QGeoCoordinate();
+
+    for (int i = 0; i < len; ++i)
+    {
+        waypoint = qobject_cast<SimpleMissionItem*>(_visualItems->get(i));
+        if (waypoint)
+        {
+            if (waypoint->command() == MAV_CMD_NAV_WAYPOINT || waypoint->command() == MAV_CMD_NAV_VTOL_TAKEOFF || waypoint->command() == MAV_CMD_NAV_TAKEOFF)
+            {
+                newCoord.setLatitude(waypoint->coordinate().latitude() + xTranslation);
+                newCoord.setLongitude(waypoint->coordinate().longitude() + yTranslation);
+                newCoord.setAltitude(waypoint->coordinate().altitude());
+                waypoint->setCoordinate(newCoord);
+            }
+        }
     }
 }
 

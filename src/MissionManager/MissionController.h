@@ -114,6 +114,10 @@ public:
 
     Q_INVOKABLE void removeVisualItem(int viIndex);
 
+
+    Q_INVOKABLE QGeoCoordinate getTakeOffCoord(void);
+    Q_INVOKABLE void mooveWayPoints(QGeoCoordinate coordinate);
+
     /// Add a new simple mission item to the list
     ///     @param coordinate: Coordinate for item
     ///     @param visualItemIndex: index to insert at, -1 for end of list

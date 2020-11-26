@@ -15,17 +15,18 @@ import QtPositioning    5.3
 import QtQuick.Layouts  1.2
 import QtQuick.Window   2.2
 
-import QGroundControl                   1.0
-import QGroundControl.FlightMap         1.0
-import QGroundControl.ScreenTools       1.0
-import QGroundControl.Controls          1.0
-import QGroundControl.FactSystem        1.0
-import QGroundControl.FactControls      1.0
-import QGroundControl.Palette           1.0
-import QGroundControl.Controllers       1.0
-import QGroundControl.ShapeFileHelper   1.0
-import QGroundControl.Airspace          1.0
-import QGroundControl.Airmap            1.0
+import QGroundControl                       1.0
+import QGroundControl.FlightMap             1.0
+import QGroundControl.ScreenTools           1.0
+import QGroundControl.ScreenToolsController 1.0
+import QGroundControl.Controls              1.0
+import QGroundControl.FactSystem            1.0
+import QGroundControl.FactControls          1.0
+import QGroundControl.Palette               1.0
+import QGroundControl.Controllers           1.0
+import QGroundControl.ShapeFileHelper       1.0
+import QGroundControl.Airspace              1.0
+import QGroundControl.Airmap                1.0
 
 Item {
     id: _root
@@ -720,10 +721,17 @@ Item {
                         iconSource:         "/qmlimages/select.svg"
                         enabled:            toolStrip._isRallyLayer ? true : _missionController.flyThroughCommandsAllowed
                         visible:            toolStrip._isRallyLayer || toolStrip._isMissionLayer
-                        //checkable:          true
-                        dropPanelComponent: selectionDropPanel
+                        checkable:          true
+
+                        onTriggered: {
+                            editorMap.focus = true
+                            var xpos = ScreenToolsController.mouseX()
+                            var ypos = ScreenToolsController.mouseY()
+                            var coordinate = editorMap.toCoordinate(Qt.point(xpos, ypos), false)
+                            _missionController.mooveWayPoints(coordinate)
+                        }
                     }
-                ]
+                ]    
             }
 
             model: toolStripActionList.model
