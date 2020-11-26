@@ -61,6 +61,7 @@ Item {
     readonly property int       _layerMission:              1
     readonly property int       _layerGeoFence:             2
     readonly property int       _layerRallyPoints:          3
+
     readonly property string    _armedVehicleUploadPrompt:  qsTr("Vehicle is currently armed. Do you want to upload the mission to the vehicle?")
 
     function mapCenter() {
@@ -81,10 +82,12 @@ Item {
         }
     }
 
-    property bool _firstMissionLoadComplete:    false
-    property bool _firstFenceLoadComplete:      false
-    property bool _firstRallyLoadComplete:      false
-    property bool _firstLoadComplete:           false
+    property bool _firstMissionLoadComplete:        false
+    property bool _firstFenceLoadComplete:          false
+    property bool _firstRallyLoadComplete:          false
+    property bool _firstLoadComplete:               false
+    property bool _selectionmode:                   false
+    property bool _selectionOtherMode:              false
 
     MapFitFunctions {
         id:                         mapFitFunctions  // The name for this id cannot be changed without breaking references outside of this code. Beware!
@@ -472,10 +475,21 @@ Item {
                         if (_rallyPointController.supported && _addWaypointOnClick) {
                             _rallyPointController.addPoint(coordinate)
                         }
+
+
                         break
+
+                    }
+
+
+                    if (_selectionmode && _editingLayer == _layerMission)
+                    {
+                        _missionController.mooveWayPoints(coordinate)
                     }
                 }
             }
+
+
 
             // Add the mission item visuals to the map
             Repeater {
@@ -724,11 +738,7 @@ Item {
                         checkable:          true
 
                         onTriggered: {
-                            editorMap.focus = true
-                            var xpos = ScreenToolsController.mouseX()
-                            var ypos = ScreenToolsController.mouseY()
-                            var coordinate = editorMap.toCoordinate(Qt.point(xpos, ypos), false)
-                            _missionController.mooveWayPoints(coordinate)
+                            _selectionmode = true
                         }
                     }
                 ]    
