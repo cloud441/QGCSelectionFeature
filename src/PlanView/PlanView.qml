@@ -1015,17 +1015,6 @@ Item {
     }
 
     //- ToolStrip DropPanel Components
-
-//FIXME
-    Component {
-    id: selectionDropPanel
-
-        SelectionDropPanel {
-        myGeoFenceController:  _geoFenceController
-        flightMap:             editorMap
-    }
-}
-
     Component {
         id: centerMapDropPanel
 
